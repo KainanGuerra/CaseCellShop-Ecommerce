@@ -30,6 +30,40 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: casecell_backend
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: casecell_user
+      DB_PASSWORD: casecell_password
+      DB_NAME: casecell_db
+      PORT: 3001
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: casecell_frontend
+    environment:
+      NUXT_PUBLIC_API_BASE: http://localhost:3001
+      NUXT_API_BASE: http://backend:3001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
 volumes:
   pgdata:
   pgadmin_data:

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-const config = useRuntimeConfig()
+const apiBase = useApiBase()
 
 const { data: demoUser } = await useAsyncData(
   'demo-user',
-  () => $fetch<{ id: string }>(`${config.public.apiBase}/users/demo`),
+  () => $fetch<{ id: string }>(`${apiBase}/users/demo`),
 )
 
 const { items, total, setQty, remove, clear } = useCart()

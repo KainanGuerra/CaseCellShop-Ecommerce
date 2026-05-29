@@ -11,7 +11,7 @@
 ## Estrutura de Pastas
 
 ```
-/totvs/
+/casecellshop/
 ├── docker-compose.yml        ← sobe o postgres
 ├── PROJECT_STATUS.md         ← este arquivo
 ├── backend/
@@ -156,9 +156,9 @@ Isso é intencional (reserva de estoque), mas pode ser mudado se o negócio exig
 ## Tasks Pendentes / Melhorias
 
 ### Alta Prioridade
-- [ ] **Dockerfiles para backend e frontend** — atualmente ambos rodam `npm run dev` localmente; falta `Dockerfile` + serviços no `docker-compose.yml` para rodar tudo com `docker compose up`
+- [x] **Dockerfiles para backend e frontend** — `Dockerfile` multi-stage para ambos; `docker-compose.yml` com serviços `backend` e `frontend`; composable `useApiBase` resolve URL interna (SSR/Docker) vs pública (browser)
 - [ ] **Restaurar estoque em falha de ERP** — `order.status = CANCELLED` deveria fazer `product.stock_quantity += quantity` dentro de uma nova transação
-- [ ] **Variável de ambiente no frontend** — criar `frontend/.env` com `NUXT_PUBLIC_API_BASE=http://localhost:3001` em vez de hardcoded no `nuxt.config.ts`
+- [x] **Variável de ambiente no frontend** — `frontend/.env` com `NUXT_PUBLIC_API_BASE=http://localhost:3001`; `nuxt.config.ts` lê `NUXT_API_BASE` (server-side) e `NUXT_PUBLIC_API_BASE` (browser)
 
 ### Qualidade / Robustez
 - [ ] **Testes unitários** — `orders.service.spec.ts` cobrindo: sucesso, estoque insuficiente, idempotência, falha ERP
@@ -176,7 +176,7 @@ Isso é intencional (reserva de estoque), mas pode ser mudado se o negócio exig
 - [ ] **Imagens reais** — atualmente usa `picsum.photos` (placeholder); integrar upload ou CDN
 
 ### Infraestrutura / Deploy
-- [ ] **`docker-compose.yml` completo** — incluir serviços `backend` e `frontend` com build, depends_on, healthcheck e network
+- [x] **`docker-compose.yml` completo** — inclui serviços `backend` e `frontend` com build, depends_on e restart policy
 - [ ] **`.env.example`** — arquivo de exemplo para todas as variáveis de ambiente
 - [ ] **CI/CD básico** — GitHub Actions: lint + testes + build
 - [ ] **Logging estruturado** — substituir `console.log` por logger JSON para produção (ex: `pino`)

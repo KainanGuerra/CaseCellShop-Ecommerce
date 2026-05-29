@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import type { OrderDetail } from '~/types/api'
 
-const config = useRuntimeConfig()
+const apiBase = useApiBase()
 
 const { data: demoUser } = await useAsyncData(
   'demo-user',
-  () => $fetch<{ id: string }>(`${config.public.apiBase}/users/demo`),
+  () => $fetch<{ id: string }>(`${apiBase}/users/demo`),
 )
 
 const { data: orders, pending, error, refresh } = await useAsyncData<OrderDetail[]>(
   'user-orders',
   () => {
     if (!demoUser.value?.id) return Promise.resolve([])
-    return $fetch(`${config.public.apiBase}/orders/user/${demoUser.value.id}`)
+    return $fetch(`${apiBase}/orders/user/${demoUser.value.id}`)
   },
 )
 

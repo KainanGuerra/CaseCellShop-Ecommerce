@@ -39,18 +39,49 @@ E-commerce fullstack de capinhas e acessórios de celular construído com **Nest
 
 ### Pré-requisitos
 
-- [Node.js](https://nodejs.org) v18+
 - [Docker](https://www.docker.com) + Docker Compose
 
-### Passo 1 — Banco de dados
+### Opção 1 — Docker Compose (recomendado)
+
+Sobe todos os serviços (banco, backend e frontend) com um único comando:
 
 ```bash
-docker compose up -d
+docker compose up --build
 ```
 
-Sobe o PostgreSQL 16 na porta **5433** e o pgAdmin em **http://localhost:5050** (admin@admin.com / password).
+| Serviço   | URL                                          |
+|-----------|----------------------------------------------|
+| Frontend  | http://localhost:3000                        |
+| API       | http://localhost:3001                        |
+| pgAdmin   | http://localhost:5050 (admin@admin.com / password) |
 
-### Passo 2 — Backend
+Na primeira inicialização o seed roda automaticamente: 1 usuário demo + 6 produtos criados.
+
+Para rodar em background:
+
+```bash
+docker compose up --build -d
+```
+
+Para parar e remover os containers:
+
+```bash
+docker compose down
+```
+
+---
+
+### Opção 2 — Desenvolvimento local (hot reload)
+
+Requer [Node.js](https://nodejs.org) v18+ além do Docker.
+
+**Passo 1 — Banco de dados**
+
+```bash
+docker compose up -d postgres pgadmin
+```
+
+**Passo 2 — Backend**
 
 ```bash
 cd backend
@@ -58,11 +89,9 @@ npm install
 npm run start:dev
 ```
 
-Na primeira inicialização o seed roda automaticamente: 1 usuário demo + 6 produtos criados.
-
 API disponível em **http://localhost:3001**
 
-### Passo 3 — Frontend
+**Passo 3 — Frontend**
 
 Em outro terminal:
 

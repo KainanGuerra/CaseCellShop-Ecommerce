@@ -2,12 +2,12 @@
 import type { Product } from '~/types/api'
 
 const route = useRoute()
-const config = useRuntimeConfig()
+const apiBase = useApiBase()
 const productId = route.params.id as string
 
 const { data: product, error } = await useAsyncData<Product>(
   `product-${productId}`,
-  () => $fetch(`${config.public.apiBase}/products/${productId}`),
+  () => $fetch(`${apiBase}/products/${productId}`),
 )
 
 const { add } = useCart()

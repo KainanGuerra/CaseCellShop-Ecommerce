@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PaginatedResponse, Product } from '~/types/api'
 
-const config = useRuntimeConfig()
+const apiBase = useApiBase()
 const PAGE_SIZE = 6
 const { itemCount } = useCart()
 
@@ -9,7 +9,7 @@ const currentPage = ref(1)
 
 const { data, error, pending, refresh } = await useAsyncData<PaginatedResponse<Product>>(
   () => `products-page-${currentPage.value}`,
-  () => $fetch(`${config.public.apiBase}/products?page=${currentPage.value}&limit=${PAGE_SIZE}`),
+  () => $fetch(`${apiBase}/products?page=${currentPage.value}&limit=${PAGE_SIZE}`),
   { watch: [currentPage] },
 )
 
