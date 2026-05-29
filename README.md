@@ -55,7 +55,7 @@ docker compose up --build
 | API       | http://localhost:3001                        |
 | pgAdmin   | http://localhost:5050 (admin@admin.com / password) |
 
-Na primeira inicialização o seed roda automaticamente: 1 usuário demo + 6 produtos criados.
+Na primeira inicialização o seed roda automaticamente: 1 usuário demo + 20 produtos criados.
 
 Para rodar em background:
 
@@ -67,6 +67,12 @@ Para parar e remover os containers:
 
 ```bash
 docker compose down
+```
+
+Para parar as aplicações e limpar o banco de dados:
+
+```bash
+docker compose down -v
 ```
 
 ---
